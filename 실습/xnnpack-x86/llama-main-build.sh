@@ -1,0 +1,29 @@
+
+#/bin/bash
+
+cmake -DPYTHON_EXECUTABLE=python \
+    -DCMAKE_INSTALL_PREFIX=cmake-out \
+    -DEXECUTORCH_ENABLE_LOGGING=1 \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DEXECUTORCH_BUILD_EXTENSION_DATA_LOADER=ON \
+    -DEXECUTORCH_BUILD_EXTENSION_MODULE=ON \
+    -DEXECUTORCH_BUILD_EXTENSION_TENSOR=ON \
+    -DEXECUTORCH_BUILD_XNNPACK=ON \
+    -DEXECUTORCH_BUILD_KERNELS_QUANTIZED=ON \
+    -DEXECUTORCH_BUILD_KERNELS_OPTIMIZED=ON \
+    -DEXECUTORCH_BUILD_KERNELS_CUSTOM=ON \
+    -Bcmake-out .
+
+cmake --build cmake-out -j16 --target install --config Release
+
+cmake -DPYTHON_EXECUTABLE=python \
+    -DCMAKE_INSTALL_PREFIX=cmake-out \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DEXECUTORCH_BUILD_KERNELS_CUSTOM=ON \
+    -DEXECUTORCH_BUILD_KERNELS_OPTIMIZED=ON \
+    -DEXECUTORCH_BUILD_XNNPACK=ON \
+    -DEXECUTORCH_BUILD_KERNELS_QUANTIZED=ON \
+    -Bcmake-out/examples/models/llama \
+    examples/models/llama
+
+cmake --build cmake-out/examples/models/llama -j16 --config Release

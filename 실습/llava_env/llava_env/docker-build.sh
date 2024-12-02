@@ -1,0 +1,1 @@
+docker buildx build . -t llava:lgup_test -o type=docker
