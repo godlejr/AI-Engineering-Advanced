@@ -78,6 +78,18 @@ python -m examples.models.llava.export_llava --pte-name llava.pte --with-artifac
 ```
 python -m examples.models.llava.image_util --image-path <basketball.jpg> --output-path image.pt
 ```
+
+- PC에서 추론
+```
+cmake-out/examples/models/llava/llava_main \
+    --model_path=llava.pte                 \
+    --tokenizer_path=tokenizer.bin         \
+    --image_path=image.pt                  \
+    --prompt="ASSISTANT:" \
+    --seq_len=768                          \
+    --temperature=0
+```
+
 ## 여기서부터는 로컬 Executorch 환경이 필요합니다.
 ## Build Android Demo App
 ### Build AAR Library
